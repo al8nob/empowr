@@ -1,0 +1,204 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  margin-block: 5rem;
+}
+
+.profile-container .profile-title {
+  color: #ffc400;
+  font-weight: 700;
+  font-size: 30px;
+  margin: 0;
+}
+
+.profile-container .profile-description {
+  font-weight: lighter;
+  font-size: 14px;
+  margin: 0;
+}
+
+.profile-container .userInfoForm {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  width: 100%;
+  gap: 2rem;
+  padding-inline: 1rem;
+}
+
+.profile-container .userInfoForm .inp-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  width: 100%;
+}
+
+.profile-container .userInfoForm .inp-container .firstLast-Name {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.profile-container
+  .userInfoForm
+  .inp-container
+  .firstLast-Name
+  input[name="fname"],
+.profile-container
+  .userInfoForm
+  .inp-container
+  .firstLast-Name
+  input[name="lname"] {
+  width: 100%;
+}
+
+.profile-container .userInfoForm .inp-container .emailPhone {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.profile-container .userInfoForm .inp-container .emailPhone input[name="email"],
+.profile-container
+  .userInfoForm
+  .inp-container
+  .emailPhone
+  input[name="phone"] {
+  width: 100%;
+}
+
+.profile-container .userInfoForm .inp-container input[type="date"] {
+  color: #bdbdbd;
+}
+
+.profile-container .userInfoForm .inp-container .inpField {
+  background-color: rgba(217, 217, 217, 23%);
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
+  color: white;
+  outline: 2px solid transparent;
+  border: none;
+  padding: 8px 20px;
+}
+
+.profile-container .userInfoForm .inp-container .form-select {
+  background-color: rgba(217, 217, 217, 23%);
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3e%3cpath fill=%27none%27 stroke=%27%23bdbdbd%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27m2 5 6 6 6-6%27/%3e%3c/svg%3e");
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
+  color: #bdbdbd;
+  outline: 2px solid transparent;
+  border: none;
+  padding: 8px 20px;
+}
+
+.profile-container
+  .userInfoForm
+  .inp-container
+  .form-select
+  .genderOptionElement {
+  background-color: #47484b;
+  color: white;
+  outline: none;
+  border: none;
+}
+
+::placeholder {
+  color: #bdbdbd;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+}
+
+.profile-container .userInfoForm .inp-container .inpField:focus::placeholder {
+  color: #ffc400;
+}
+
+.profile-container .userInfoForm .lineSeparator {
+  margin: 0;
+  border: 0.5px solid #ffc400;
+  width: 100px;
+}
+
+.profile-container .userInfoForm .saveDeleteBtns {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.profile-container .userInfoForm .saveDeleteBtns .deleteAccountBtn,
+.profile-container .userInfoForm .saveDeleteBtns .updateDataBtn {
+  font-weight: 600;
+  width: inherit;
+}
+
+.profile-container .signOutBtnContainer {
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+
+.profile-container .signOutBtnContainer:hover {
+  opacity: 0.8;
+}
+
+.profile-container .signOutBtn {
+  text-decoration: none;
+  color: #dc3545;
+  font-weight: 600;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.profile-container .signOutBtn .signOutIcon {
+  width: 30px;
+  height: 30px;
+}
+
+/* 
+  
+    560px 768px 992px 1200px 1400px
+  
+  */
+
+/* mobiles & tablet screen */
+
+@media (min-width: 768px) {
+  .profile-container .userInfoForm {
+    width: 60%;
+  }
+
+  .profile-container .userInfoForm .saveDeleteBtns {
+    flex-direction: row;
+  }
+}
+
+/* tablet & small desktop screen */
+
+@media (min-width: 992px) {
+  .profile-container .userInfoForm {
+    width: 50%;
+  }
+}
+
+/* medium desktop & large desktop screen */
+
+@media (min-width: 1200px) {
+  .profile-container .userInfoForm {
+    width: 40%;
+  }
+}

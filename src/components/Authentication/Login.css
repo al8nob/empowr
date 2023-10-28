@@ -1,0 +1,194 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  margin-block: 5rem;
+}
+
+.login-container .login-title {
+  color: #ffc400;
+  font-weight: 700;
+  font-size: 30px;
+  margin: 0;
+}
+
+.login-container .login-description {
+  font-weight: lighter;
+  font-size: 14px;
+  margin: 0;
+}
+
+.login-container .inpFields {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  width: 100%;
+  gap: 2rem;
+  padding-inline: 1rem;
+}
+
+.login-container .inpFields .inp-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  width: 100%;
+}
+
+.login-container .inpFields .inp-container .inpField {
+  background-color: rgba(217, 217, 217, 23%);
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
+  color: white;
+  outline: 2px solid transparent;
+  border: none;
+  padding: 8px 20px;
+}
+
+.login-container .inpFields .inp-container .forgotPasswordLink {
+  text-decoration: none;
+  text-align: center;
+  color: #ffc400;
+  font-weight: 500;
+  font-size: 13px;
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+
+.login-container .inpFields .inp-container .forgotPasswordLink:hover {
+  color: white;
+}
+
+::placeholder {
+  color: #bdbdbd;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+}
+
+.login-container .inpFields .inp-container .inpField:focus::placeholder {
+  color: #ffc400;
+}
+
+.login-container .inpFields .submitDataBtn {
+  width: inherit;
+  font-weight: 600;
+}
+
+.login-container .noteForm {
+  font-size: 13px;
+  margin-top: 1rem;
+  color: white;
+}
+
+.login-container .noteForm .signupLink {
+  text-decoration: none;
+  color: #ffc400;
+  font-weight: 500;
+  font-size: 13px;
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+
+.login-container .noteForm .signupLink:hover {
+  color: white;
+}
+
+.login-container .text-or {
+  margin-block: 1rem;
+  font-size: 20px;
+}
+
+.login-container .text-continue {
+  font-size: 14px;
+  font-weight: 400;
+  color: #ffc400;
+}
+
+.login-container .smIcons {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container .smIcons .googleBtn,
+.login-container .smIcons .microsoftBtn,
+.login-container .smIcons .facebookBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffc400;
+  outline: none;
+  border: none;
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+
+.login-container .smIcons .googleBtn:hover,
+.login-container .smIcons .microsoftBtn:hover,
+.login-container .smIcons .facebookBtn:hover {
+  background-color: white;
+}
+
+.login-container .smIcons .googleBtn .googleIcon,
+.login-container .smIcons .facebookBtn .facebookIcon {
+  width: 30px;
+  height: 30px;
+}
+
+.login-container .smIcons .microsoftBtn .microsoftIcon {
+  width: 27px;
+  height: 27px;
+}
+
+/* mobiles & tablet screen */
+@media (min-width: 768px) {
+  .login-container .inpFields {
+    width: 60%;
+  }
+
+  .login-container .inpFields .submitDataBtn {
+    width: 100%;
+  }
+}
+
+/* tablet & small desktop screen */
+
+@media (min-width: 992px) {
+  .login-container .inpFields {
+    width: 50%;
+  }
+}
+
+/* medium desktop & large desktop screen */
+@media (min-width: 1200px) {
+  .login-container .inpFields {
+    width: 40%;
+  }
+}
+
+/* 
+
+  560px 768px 992px 1200px 1400px
+
+*/

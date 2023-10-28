@@ -1,0 +1,23 @@
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.75rem;
+}
+
+.breadcrumb .breadcrumb-item a {
+  text-decoration: none;
+  color: #ffc400;
+  font-weight: 500;
+}
+
+.breadcrumb .breadcrumb-item.active {
+  color: rgba(255, 196, 0, 50%);
+  font-weight: 500;
+}
+
+.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  content: ">";
+  font-weight: 500;
+  color: rgba(255, 196, 0, 50%);
+}

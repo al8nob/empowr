@@ -1,0 +1,81 @@
+/*
+
+Project name =  EmpowrAuth
+Project ID = sigmaauth-ad8ca
+Project number = 1047483399707
+Web API Key = AIzaSyCtDiYcign9QXWlLmqWPnYOxQ4qtUBeymY
+
+  
+user info
+{
+    uid: 0,
+    firstName: "ahmed",
+    lastName: "zaalani",
+    displayName: "AhmedZaalani",
+    email: "fxa@hotmail.com",
+    phoneNumber: 27844727,
+}
+
+
+
+const submitForm = (e) => {
+    e.preventDefault();
+    createUserWithEmailAndPassword(
+      auth,
+      newUserData.email,
+      newUserData.password
+    )
+      .then(async () => {
+        await addDoc(usersCollectionRef, newUserData);
+        getUsersList();
+        setNewUserData({
+          ...newUserData,
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+        });
+        redirectLogin("/login");
+        msgAlertSuccess("Your account has been created!. Login Now");
+      })
+      .catch((error) => {
+        switch (error.code) {
+          // if the user entered an invalid email or the (uid) is already exists
+          case "auth/uid-already-exists":
+          case "auth/invalid-email":
+            return msgAlertError(
+              "We couldn't create your account. Please check your information and try again."
+            );
+
+          // if the user entered an email already in use
+          case "auth/email-already-in-use":
+            return msgAlertError(
+              "This email address is already in use by another user."
+            );
+
+          // if the user forgot to enter his email address
+          case "auth/missing-email":
+            return msgAlertError("Enter your email address");
+
+          // if the user forgot to enter his password
+          case "auth/missing-password":
+            return msgAlertError("Enter your password");
+
+          // if the user entered a short password
+          case "auth/weak-password":
+            return msgAlertError("Password should be at least 6 characters");
+
+          // if the user loses his connection to the internet
+          case "auth/network-request-failed":
+            return msgAlertError(
+              "Check your internet connection and try again."
+            );
+
+          // default case, if an unknown error occurred
+          default:
+            return msgAlertError(error.code);
+        }
+      });
+  };
+
+ */
