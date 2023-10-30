@@ -5,6 +5,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import "./Login.css";
+import { db } from "../../firebase-config/firebase";
+import { getDocs, query, where, collection } from "firebase/firestore";
 
 // sm icons
 import googleIcon from "../../images/googleIcon.png";
@@ -45,6 +47,9 @@ const Login = () => {
     password: "",
   });
 
+  // reference users collection
+  const dbUsersRef = collection(db, "users");
+
   // when the users is logged in successfully will redirect them to their profile.
   const redirectProfile = useNavigate();
 
@@ -62,52 +67,115 @@ const Login = () => {
       });
   };
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, userData.email, userData.password)
-      .then((userCredential) => {
-        const userInfo = userCredential;
-        console.log(userInfo);
-        redirectProfile("/profile");
-        msgAlertSuccess("Welcome, enjoy your shopping experience.");
-        setUserData({ ...userData, email: "", password: "" });
-      })
-      .catch((error) => {
-        // if any of the next cases happened from the user will display a message to inform him
+    const matchEmail = query(dbUsersRef, where("email", "==", userData.email));
 
-        switch (error.code) {
-          // if the user entered invalid data such as email - password , or the user in not found
-          case "auth/invalid-email":
-          case "auth/invalid-password":
-          case "auth/invalid-login-credentials":
-            return msgAlertError(
-              "Please check your email and password and try again."
-            );
-          // if the user hasn't an account
-          case "auth/user-not-found":
-            return msgAlertError(
-              "We couldn't find an account with that email address."
-            );
+    try {
+      // getting all the emails that matching the condition
+      const snapshot = await getDocs(matchEmail);
 
-          // if the user forgot to enter his email address
-          case "auth/missing-email":
-            return msgAlertError("Enter your email address");
+      // emails came from the database (users collection)
+      const emailExist = snapshot.docs.map((doc) => doc.data());
 
-          // if the user forgot to enter his password
-          case "auth/missing-password":
-            return msgAlertError("Enter your password");
+      // if the array contains the email that comes from the database (users collection), someone has already signed up with that email
+      if (emailExist.length > 0) {
+        signInWithEmailAndPassword(auth, userData.email, userData.password)
+          .then((userCredential) => {
+            const userInfo = userCredential;
+            console.log(userInfo);
+            console.log(userData);
+            redirectProfile("/profile");
+            msgAlertSuccess("Welcome, enjoy your shopping experience.");
+            setUserData({ ...userData, email: "", password: "" });
+          })
+          .catch((error) => {
+            // if any of the next cases happened from the user will display a message to inform him
+            switch (error.code) {
+              // if the user entered invalid data such as email - password , or the user in not found
+              case "auth/invalid-email":
+              case "auth/invalid-password":
+              case "auth/invalid-login-credentials":
+                return msgAlertError(
+                  "Please check your email and password and try again."
+                );
+              // if the user hasn't an account
+              case "auth/user-not-found":
+                return msgAlertError(
+                  "We couldn't find an account with that email address."
+                );
 
-          // if the user loses his connection to the internet
-          case "auth/network-request-failed":
-            return msgAlertError(
-              "Check your internet connection and try again."
-            );
-          // default case, if an unknown error occurred
-          default:
-            return msgAlertError(error.code);
-        }
-      });
+              // if the user forgot to enter his email address
+              case "auth/missing-email":
+                return msgAlertError("Enter your email address");
+
+              // if the user forgot to enter his password
+              case "auth/missing-password":
+                return msgAlertError("Enter your password");
+
+              // if the user loses his connection to the internet
+              case "auth/network-request-failed":
+                return msgAlertError(
+                  "Check your internet connection and try again."
+                );
+              // default case, if an unknown error occurred
+              default:
+                return msgAlertError(error.code);
+            }
+          });
+      } else {
+        msgAlertError("Invalid email or password.");
+      }
+    } catch (error) {
+      console.log(error.code);
+    }
   };
+
+  // const submitForm = (e) => {
+  //   e.preventDefault();
+  //   signInWithEmailAndPassword(auth, userData.email, userData.password)
+  //     .then((userCredential) => {
+  //       const userInfo = userCredential;
+  //       console.log(userInfo);
+  //       redirectProfile("/profile");
+  //       msgAlertSuccess("Welcome, enjoy your shopping experience.");
+  //       setUserData({ ...userData, email: "", password: "" });
+  //     })
+  //     .catch((error) => {
+  //       // if any of the next cases happened from the user will display a message to inform him
+  //       switch (error.code) {
+  //         // if the user entered invalid data such as email - password , or the user in not found
+  //         case "auth/invalid-email":
+  //         case "auth/invalid-password":
+  //         case "auth/invalid-login-credentials":
+  //           return msgAlertError(
+  //             "Please check your email and password and try again."
+  //           );
+  //         // if the user hasn't an account
+  //         case "auth/user-not-found":
+  //           return msgAlertError(
+  //             "We couldn't find an account with that email address."
+  //           );
+
+  //         // if the user forgot to enter his email address
+  //         case "auth/missing-email":
+  //           return msgAlertError("Enter your email address");
+
+  //         // if the user forgot to enter his password
+  //         case "auth/missing-password":
+  //           return msgAlertError("Enter your password");
+
+  //         // if the user loses his connection to the internet
+  //         case "auth/network-request-failed":
+  //           return msgAlertError(
+  //             "Check your internet connection and try again."
+  //           );
+  //         // default case, if an unknown error occurred
+  //         default:
+  //           return msgAlertError(error.code);
+  //       }
+  //     });
+  // };
 
   return (
     <>
@@ -129,6 +197,7 @@ const Login = () => {
               className="inpField"
               placeholder="Email"
               autoComplete="on"
+              required
             />
             <input
               type="password"
@@ -140,6 +209,7 @@ const Login = () => {
               className="inpField"
               placeholder="Password"
               autoComplete="new-password"
+              required
             />
             <NavLink to="/forgot-password" className="forgotPasswordLink">
               Forgot your password?
