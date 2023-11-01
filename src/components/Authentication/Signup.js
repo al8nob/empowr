@@ -43,8 +43,10 @@ const Signup = () => {
   const [newUserData, setNewUserData] = useState({
     firstName: "",
     lastName: "",
+    displayName: "",
     email: "",
     password: "",
+    signedInWithThirdParty: false,
   });
 
   // userList => all documents of users
@@ -60,7 +62,7 @@ const Signup = () => {
   // reference users collection
   const dbUsersRef = collection(db, "users");
 
-  const signUpFunc = async (e) => {
+  const signupForm = async (e) => {
     // to prevent the reload page
     e.preventDefault();
 
@@ -151,7 +153,7 @@ const Signup = () => {
           Please fill in the information below
         </p>
 
-        <form onSubmit={signUpFunc} className="inpFields">
+        <form onSubmit={signupForm} className="inpFields">
           <div className="inp-container">
             <div className="firstLast-Name">
               <input
@@ -227,21 +229,6 @@ const Signup = () => {
             Login
           </NavLink>
         </p>
-      </div>
-      <div className="d-flex flex-column gap-2 align-items-center text-center">
-        {userList.map((user, i) => {
-          return (
-            <div key={i}>
-              <h2>
-                {user.firstName.toUpperCase() +
-                  " " +
-                  user.lastName.toUpperCase()}
-              </h2>
-              <p>{user.email}</p>
-              <small>{user.uid}</small>
-            </div>
-          );
-        })}
       </div>
     </>
   );
