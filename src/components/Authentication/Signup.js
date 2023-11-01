@@ -47,6 +47,7 @@ const Signup = () => {
     email: "",
     password: "",
     signedInWithThirdParty: false,
+    uid: "",
   });
 
   // userList => all documents of users
@@ -87,8 +88,9 @@ const Signup = () => {
           newUserData.email,
           newUserData.password
         )
-          .then(async () => {
-            await addDoc(dbUsersRef, newUserData);
+          .then(async (result) => {
+            const user = result.user;
+            await addDoc(dbUsersRef, { ...newUserData, uid: user.uid });
             setNewUserData({
               ...newUserData,
               firstName: "",
