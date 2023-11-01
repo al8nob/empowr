@@ -81,6 +81,7 @@ const Login = () => {
               displayName: user.displayName,
               email: user.email,
               signedInWithThirdParty: true,
+              uid: user.uid,
             });
             console.log("it's exist now after signing in");
           }
