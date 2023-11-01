@@ -45,6 +45,7 @@ const Login = () => {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
+    signedInWithThirdParty: false,
   });
 
   // reference users collection
@@ -52,16 +53,6 @@ const Login = () => {
 
   // when the users is logged in successfully will redirect them to their profile.
   const redirectProfile = useNavigate();
-
-  /*
-  
-  1st step: sign in with google account (done)
-  2nd step: storing the results inside a constant (done)
-  3rd step: check if the data such as [email, displayName, phoneNumber, etc...] exists in the database
-  4th step: if exist => getting email and displayName
-  5th step: if not exist => add a new document inside users collection contains the email and displayName
-  
-  */
 
   const signInWithGoogle = () => {
     // sign in with google account
@@ -72,16 +63,24 @@ const Login = () => {
         const matchEmail = query(dbUsersRef, where("email", "==", user.email));
 
         try {
+          // getting all the emails that matching the condition
           const snapshot = await getDocs(matchEmail);
+
+          // emails came from the database (users collection)
           const emailExist = snapshot.docs.map((doc) => doc.data());
           console.log(emailExist);
+
           if (emailExist.length > 0) {
             console.log(user.email, " ", "email exist in database");
           } else {
             console.log("email's not exist in database");
             await addDoc(dbUsersRef, {
-              email: user.email,
+              ...userData,
+              firstName: "",
+              lastName: "",
               displayName: user.displayName,
+              email: user.email,
+              signedInWithThirdParty: true,
             });
             console.log("it's exist now after signing in");
           }
@@ -94,7 +93,7 @@ const Login = () => {
       });
   };
 
-  const submitForm = async (e) => {
+  const loginForm = async (e) => {
     e.preventDefault();
     const matchEmail = query(dbUsersRef, where("email", "==", userData.email));
 
@@ -123,9 +122,8 @@ const Login = () => {
               case "auth/invalid-email":
               case "auth/invalid-password":
               case "auth/invalid-login-credentials":
-                return msgAlertError(
-                  "Please check your email and password and try again."
-                );
+                return msgAlertError("Invalid email or password.");
+
               // if the user hasn't an account
               case "auth/user-not-found":
                 return msgAlertError(
@@ -180,7 +178,7 @@ const Login = () => {
           Keep track the status of your orders
         </p>
 
-        <form className="inpFields" onSubmit={submitForm}>
+        <form className="inpFields" onSubmit={loginForm}>
           <div className="inp-container">
             <input
               type="email"
